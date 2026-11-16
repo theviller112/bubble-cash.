@@ -16,7 +16,7 @@ struct RequestView: View {
                 LabeledContent("Amount") { AmountField(text: $amount) }
                 if let error { Text(error).foregroundStyle(.red) }
             }
-            .navigationTitle("Request Cash")
+            .navigationTitle("Request")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
@@ -148,7 +148,7 @@ struct GoalView: View {
                             guard v > 0 else { error = "Enter an amount"; return }
                             withAnimation(Theme.spring) {
                                 if wallet.fund(goalID, v) { amount = ""; error = nil; haptic() }
-                                else { error = "Not enough Bubble Cash" }
+                                else { error = "Not enough balance" }
                             }
                         }
                         if let error { Text(error).foregroundStyle(.red) }

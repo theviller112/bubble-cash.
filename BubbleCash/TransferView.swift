@@ -31,7 +31,7 @@ struct TransferView: View {
                 else { review.transition(.move(edge: .trailing).combined(with: .opacity)) }
             }
             .animation(Theme.spring, value: stage == .form)
-            .navigationTitle(stage == .form ? "\(verb) Cash" : "Review")
+            .navigationTitle(stage == .form ? verb : "Review")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -85,7 +85,7 @@ struct TransferView: View {
         guard value > 0 else { error = "Enter an amount"; return }
         if mode == .send {
             guard phone.filter(\.isNumber).count == 10 else { error = "Enter a 10-digit number"; return }
-            guard value <= wallet.balance else { error = "Not enough Bubble Cash"; return }
+            guard value <= wallet.balance else { error = "Not enough balance"; return }
             guard !wallet.currentCard.frozen else { error = "\(wallet.currentCard.name) is frozen"; return }
         }
         error = nil
@@ -171,7 +171,7 @@ struct TransferView: View {
             try? await Task.sleep(nanoseconds: 900_000_000)
             await MainActor.run {
                 withAnimation(Theme.spring) {
-                    if mode == .add { wallet.add(value, title: "Added Bubble Cash") }
+                    if mode == .add { wallet.add(value, title: "Added") }
                     else { _ = wallet.spend(value, title: "Sent to \(phone)") }
                 }
                 stage = .done

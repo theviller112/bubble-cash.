@@ -71,7 +71,7 @@ struct PayView: View {
         switch stage {
         case .ready: message ?? "Hold to Pay"
         case .verifying: "Confirm with Face ID"
-        case .done: "Paid \(amount) Bubble Cash"
+        case .done: "Paid \(amount)"
         }
     }
 
@@ -158,7 +158,7 @@ struct PayView: View {
     private func complete() {
         let v = amountValue(amount)
         guard v > 0 else { fail("Enter an amount"); return }
-        guard v <= wallet.balance else { fail("Not enough Bubble Cash"); return }
+        guard v <= wallet.balance else { fail("Not enough balance"); return }
         stage = .verifying
         Task {
             let ok = await Auth.confirm("Confirm your payment")

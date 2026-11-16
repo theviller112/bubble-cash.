@@ -52,7 +52,7 @@ struct CardView: View {
                 }
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text("Bubble Cash").font(.footnote.weight(.semibold)).opacity(0.75)
+                EmptyView()
                 Text(name).font(.title2.weight(.bold))
                 Spacer()
                 Text("BALANCE").font(.caption2.weight(.semibold)).opacity(0.7)
